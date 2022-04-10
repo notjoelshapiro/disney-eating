@@ -1,4 +1,8 @@
-import {lookupDataDefinition, runQueryWithLookupData} from "./queryHelpers";
+import {
+  delayInMS,
+  lookupDataDefinition,
+  runQueryWithLookupData,
+} from "./queryHelpers";
 import {
   hasAvailableTimes,
   notifyIftttForFailure,
@@ -19,6 +23,10 @@ const start = async (lookups: lookupDataDefinition[]) => {
     if (hasAvailableTimes(lookupResult.openings)) {
       console.log("Available time was found!");
       notifyIftttForOpenings(lookupResult.openings);
+    }
+
+    if (lookups[i + 1]) {
+      await delayInMS(2000);
     }
   }
   return true;

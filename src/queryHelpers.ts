@@ -133,6 +133,11 @@ export const getTimestampForDateString = (dateString: string): number => {
   return new Date(dateString).getTime() + 500000;
 };
 
+// https://stackoverflow.com/questions/14226803/wait-5-seconds-before-executing-next-line
+export const delayInMS = (ms: number) =>
+  new Promise((res) => setTimeout(res, ms));
+
+
 export type lookupDataDefinition = {
   dateString: string;
   eatery: EateryNames;
