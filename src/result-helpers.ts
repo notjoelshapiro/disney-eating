@@ -1,12 +1,6 @@
 import axios from "axios";
+import {lookupDataDefinition, OpeningDefinition} from "./queryHelpers";
 import {
-  lookupDataDefinition,
-  OpeningDefinition,
-  OpeningMealTimesDefinition,
-} from "./queryHelpers";
-import {
-  EateryNames,
-  IFTTTEventWebhookDefinition,
   IFTTT_EVENT_NAME,
   IFTTT_KEY,
   IFTTT_OPENING_FAILURE_EVENT_NAME,

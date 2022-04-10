@@ -36,8 +36,20 @@ const generateLookupData = (
   };
 };
 
+const generateLookupsForSpring2002 = (eatery: EateryNames) => {
+  return [
+    generateLookupData("4-23-2022", eatery, 2),
+    generateLookupData("4-24-2022", eatery, 2),
+    generateLookupData("4-24-2022", eatery, 4),
+    generateLookupData("4-25-2022", eatery, 2),
+    generateLookupData("4-26-2022", eatery, 2),
+  ];
+};
+
 const lookupsToRun: lookupDataDefinition[] = [
-  generateLookupData("4-25-2022", EateryNames.Oga, 2),
+  ...generateLookupsForSpring2002(EateryNames.Oga),
+  ...generateLookupsForSpring2002(EateryNames.Lamplight),
+  ...generateLookupsForSpring2002(EateryNames.CarthayLounge),
 ];
 
 start(lookupsToRun);

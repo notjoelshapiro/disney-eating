@@ -3,7 +3,6 @@ import {EateryNames} from "./url-consts";
 import {
   generateOgaURLWithDate,
   getDateInPartsFromTimestamp,
-  getTodaysDateInParts,
 } from "./url-helpers";
 
 export enum OpeningMealTimesDefinition {
@@ -108,7 +107,7 @@ export const runQuery = async (
             generateOpeningResultObject(OpeningMealTimesDefinition.Lunch)
           );
         }
-        if (hasOpenTimeForSlot(resultOpenings.Dinner) || true) {
+        if (hasOpenTimeForSlot(resultOpenings.Dinner)) {
           openings.push(
             generateOpeningResultObject(OpeningMealTimesDefinition.Dinner)
           );
@@ -152,6 +151,5 @@ export const runQueryWithLookupData = async ({
     eatery,
     guestCount
   );
-  console.log(generatedURLForEatery, eatery, guestCount);
   return runQuery(generatedURLForEatery, eatery, guestCount);
 };
