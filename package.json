@@ -1,0 +1,14 @@
+{
+  "name": "disney-eating",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "@types/es6-promise": "^3.3.0",
+    "axios": "^0.26.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
+  }
+}
