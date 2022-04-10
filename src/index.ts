@@ -1,44 +1,43 @@
-import axios from "axios";
+import {lookupDataDefinition, runQueryWithLookupData} from "./queryHelpers";
+import {
+  hasAvailableTimes,
+  notifyIftttForFailure,
+  notifyIftttForOpenings,
+} from "./result-helpers";
+import {EateryNames} from "./url-consts";
 
-const urlsToCheck: string[] = [];
+const start = async (lookups: lookupDataDefinition[]) => {
+  for (let i = 0; i < lookups.length; i++) {
+    const currLookup = lookups[i];
+    const lookupResult = await runQueryWithLookupData(currLookup);
+    if (!lookupResult.wasSuccessful) {
+      console.log(`OGA query failed with error: ${lookupResult.error}`);
+      notifyIftttForFailure(currLookup);
+      return;
+    }
 
-const getURLsToCheck = () => {
-  return urlsToCheck;
-};
-
-const checkURLs = async (urls: string[]) => {
-  const errors: any[] = [];
-  // urls.forEach(async (url) => {
-  //   try {
-  //     const response = await fetch(url);
-  //     if (!response.ok) {
-  //       errors.push({ url, status: response.status });
-  //     }
-  //   } catch (error) {
-  //     errors.push({ url, error });
-  //   }
-  // }
-  console.log("working");
-  urls.forEach(async (url: string, index: number) => {
-    console.log(`Checking ${url} at index ${index}.`);
-    await axios
-      .get(url)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-        const tempErrorMessage = `Error on index ${index} with message of: ${err.message}`;
-        console.log("tempErrorMessage", tempErrorMessage);
-        errors.push(tempErrorMessage);
-      });
-  });
-
-  console.log(`There were ${errors.length} errors`);
-  if (errors.length) {
-    console.log("errors", errors);
+    if (hasAvailableTimes(lookupResult.openings)) {
+      console.log("Available time was found!");
+      notifyIftttForOpenings(lookupResult.openings);
+    }
   }
   return true;
 };
 
-checkURLs(getURLsToCheck());
+const generateLookupData = (
+  dateString: string,
+  eatery: EateryNames,
+  guestCount: number
+): lookupDataDefinition => {
+  return {
+    dateString,
+    eatery,
+    guestCount,
+  };
+};
+
+const lookupsToRun: lookupDataDefinition[] = [
+  generateLookupData("4-25-2022", EateryNames.Oga, 2),
+];
+
+start(lookupsToRun);

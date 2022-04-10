@@ -1,0 +1,90 @@
+# This script checks for availability of Disney Dining reservations.
+# It will use Pushbullet to send notifications to any device. Set up an account there and get your API key.
+
+'''
+	Revision History:
+	1/8/2013
+		Use BeautifulSoup to extract pep_csrf_value and id_value
+		Set log to same directory as py script 
+		Added check to see if pb_api_key set - if not then do not use PB Api
+	1/9/2013 - Swapped out pushbullett integration to IFTTT
+			
+'''
+import requests
+import logging
+from BeautifulSoup import BeautifulSoup
+
+#ifttt webhook channel parameters
+ifttt_key = ""
+ifttt_event = ""
+ifttt_url = "https://maker.ifttt.com/trigger/" + ifttt_event + "/with/key/" + ifttt_key
+
+logging.basicConfig(filename="./disney-dining.log", level=logging.DEBUG)
+
+print("Checking for availability...")
+
+#Put the URL in of the restaurant you are seeking reservations
+#restaurant_url = "https://disneyworld.disney.go.com/dining/polynesian-resort/ohana/"
+restaurant_url = "https://disneyworld.disney.go.com/dining/polynesian-resort/kona-cafe/"
+
+
+if(restaurant_url.rsplit('/')[-1] == ""):
+	requested_rest = restaurant_url.rsplit('/')[-2]
+else:
+	requested_rest = restaurant_url.rsplit('/')[-1]
+	
+requested_date = '2018-04-22'
+requested_time = '17:30'
+
+# Get the restaurant page for its restaurant id value and cookies pep_csrf value:
+restaurant_page = requests.get(restaurant_url)
+soup = BeautifulSoup(restaurant_page.text)
+pep_csrf_value = soup.find("input",{"name":"pep_csrf"})['value']
+id_value = soup.find("span",{"class":"finderDetailsCTA diningReservation","data-url":"/finder/dining-availability/"})['data-id']
+
+# Build the search query:
+payload = {
+	'searchDate': requested_date,
+	'skipPricing':'true',
+	'searchTime': requested_time,
+	'partySize':'2',
+	'id':id_value,
+	'type': 'dining',
+	'pep_csrf' : pep_csrf_value
+	}
+
+# Add the headers:
+headers = {
+	'X-Requested-With': 'XMLHttpRequest',
+	'Referer':'https://disneyworld.disney.go.com/dining/polynesian-resort/ohana/'
+}
+
+# Send the request to the server with search, headers, and cookies:
+check = requests.post("https://disneyworld.disney.go.com/finder/dining-availability/", data=payload, headers=headers, cookies=restaurant_page.cookies)
+
+# Let the user know:
+print("Response from server:")
+print(check.text)
+
+if check.status_code == 200:
+	if 'No tables available' in check.text:
+		print("No space available.")
+		logging.info("Negative response from server.")
+	else:
+		print("SPACE AVAILABLE!")
+		logging.info("Positive response from server: "  + check.text)
+		ifttt_payload = {
+			"value1" : requested_rest,
+			"value2" : requested_date,
+			"value3" : requested_time
+		}
+		ifttt_post = requests.post(ifttt_url,data=ifttt_payload)
+
+else:
+	print("Server error, status code: " + str(check.status_code))
+	logging.info("Server error, status code: " + str(check.status_code))
+	ifttt_payload = {
+			"value1" : Server error,
+			"value2" : str(check.status_code)
+		}
+		ifttt_post = requests.post(ifttt_url,data=ifttt_payload)
