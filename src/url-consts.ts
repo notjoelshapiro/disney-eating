@@ -32,10 +32,12 @@ export enum EateryNames {
   Oga = "Oga's Canteen",
   Lamplight = "Lamplight Lounge",
   CarthayLounge = "Carthay Circle Lounge",
+  TraderSams = "Trader Sams",
 }
 
 export const EateryIDs = {
   [EateryNames.Oga]: "138",
   [EateryNames.Lamplight]: "126",
   [EateryNames.CarthayLounge]: "145",
+  [EateryNames.TraderSams]: "151",
 };

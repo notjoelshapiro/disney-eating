@@ -26,7 +26,7 @@ const start = async (lookups: lookupDataDefinition[]) => {
     }
 
     if (lookups[i + 1]) {
-      await delayInMS(2000);
+      await delayInMS(1400);
     }
   }
   return true;
@@ -58,6 +58,7 @@ const lookupsToRun: lookupDataDefinition[] = [
   ...generateLookupsForSpring2002(EateryNames.Oga),
   ...generateLookupsForSpring2002(EateryNames.Lamplight),
   ...generateLookupsForSpring2002(EateryNames.CarthayLounge),
+  ...generateLookupsForSpring2002(EateryNames.TraderSams),
 ];
 
 start(lookupsToRun);
