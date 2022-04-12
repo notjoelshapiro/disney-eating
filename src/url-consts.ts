@@ -6,6 +6,8 @@ export const IFTTT_OPENING_FAILURE_EVENT_NAME = "reservation_lookup_failure";
 
 export const IFTTT_KEY = "felvPa6aBfh_DOZ6eoPgDj-8U5kVjNXoWh1lY11bWLM";
 
+export const IFTTT_KEY_FOR_KATIE = "chNWCbjcW9MN59AzhWUCnu";
+
 export type IFTTTEventWebhookDefinition = {
   value1: string; // eatery
   value2: string; // mealtime

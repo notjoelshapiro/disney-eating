@@ -3,6 +3,7 @@ import {lookupDataDefinition, OpeningDefinition} from "./queryHelpers";
 import {
   IFTTT_EVENT_NAME,
   IFTTT_KEY,
+  IFTTT_KEY_FOR_KATIE,
   IFTTT_OPENING_FAILURE_EVENT_NAME,
 } from "./url-consts";
 
@@ -30,7 +31,10 @@ export const triggerIfttt = async (
     value3,
   };
 
-  return axios.post(url, data);
+  return axios.post(url, data).then(() => {
+    const katieURL = `https://maker.ifttt.com/trigger/${eventName}/with/key/${IFTTT_KEY_FOR_KATIE}`;
+    return axios.post(katieURL, data);
+  });
 };
 
 export const notifyIftttForFailure = async (
@@ -53,7 +57,7 @@ export const notifyIftttForOpenings = async (openings: OpeningDefinition[]) => {
     const opening = openings[i];
     await triggerIfttt({
       value1: opening.eatery,
-      value2: opening.mealTime,
+      value2: `${opening.mealTime} on ${opening.dateString}`,
       value3: opening.guestCount,
     });
   }

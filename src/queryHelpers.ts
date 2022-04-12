@@ -16,6 +16,7 @@ export type OpeningDefinition = {
   guestCount: number;
   eatery: EateryNames;
   mealTime: OpeningMealTimesDefinition;
+  dateString: string;
 };
 
 export type QueryErrorDefinition = string | null;
@@ -29,7 +30,8 @@ export type QueryResultDefinition = {
 export const runQuery = async (
   url: string,
   eatery: EateryNames,
-  guestCount: number
+  guestCount: number,
+  dateString: string
 ): Promise<QueryResultDefinition> => {
   /*
     result:
@@ -82,6 +84,7 @@ export const runQuery = async (
       guestCount,
       mealTime: availableMealtime,
       eatery,
+      dateString,
     };
   };
 
@@ -137,7 +140,6 @@ export const getTimestampForDateString = (dateString: string): number => {
 export const delayInMS = (ms: number) =>
   new Promise((res) => setTimeout(res, ms));
 
-
 export type lookupDataDefinition = {
   dateString: string;
   eatery: EateryNames;
@@ -156,5 +158,6 @@ export const runQueryWithLookupData = async ({
     eatery,
     guestCount
   );
-  return runQuery(generatedURLForEatery, eatery, guestCount);
+
+  return runQuery(generatedURLForEatery, eatery, guestCount, dateString);
 };
