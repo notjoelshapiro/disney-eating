@@ -13,16 +13,16 @@ import {EateryNames, QUERY_DELAY_DURATION} from "./url-consts";
 const start = async (lookups: lookupDataDefinition[]) => {
   for (let i = 0; i < lookups.length; i++) {
     const currLookup = lookups[i];
-    const lookupResult = await runQueryWithLookupData(currLookup);
-    if (!lookupResult.wasSuccessful) {
-      console.log(`OGA query failed with error: ${lookupResult.error}`);
+    const { wasSuccessful, openings, error } = await runQueryWithLookupData(currLookup);
+    if (!wasSuccessful) {
+      console.log(`OGA query failed with error: ${error}`);
       notifyIftttForFailure(currLookup);
       return;
     }
 
-    if (hasAvailableTimes(lookupResult.openings)) {
+    if (hasAvailableTimes(openings)) {
       console.log("Available time was found!");
-      notifyIftttForOpenings(lookupResult.openings);
+      notifyIftttForOpenings(openings);
     }
 
     if (lookups[i + 1]) {
