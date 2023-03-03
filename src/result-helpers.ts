@@ -55,6 +55,8 @@ export const notifyIftttForOpenings = async (openings: OpeningDefinition[]) => {
   // iterate through openingTimes and console log the value
   for (let i = 0; i < openings.length; i++) {
     const opening = openings[i];
+
+    console.log(`Available time was found for: ${opening.eatery} on ${opening.dateString} at ${opening.mealTime} for ${opening.guestCount} guests`);
     await triggerIfttt({
       value1: opening.eatery,
       value2: `${opening.mealTime} on ${opening.dateString}`,
