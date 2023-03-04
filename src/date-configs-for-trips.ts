@@ -1,4 +1,6 @@
-import { DateAndPersonCountDataDefinition, generateLookupData, generateLookupsForEateryOnDates } from "./execution-tools";
+import { DateAndPersonCountDataDefinition, generateLookupData, generateLookupsForEateryAndDatePersonData } from "./execution-tools";
+import { FOUR_PERSON_COUNT, generateFourPersonData, generateTwoPersonData, TWO_PERSON_COUNT } from "./generate-date-and-person-data";
+import { generateLookupDataForDatesAndEateries } from "./gernerate-lookup-data-for-dates-and-eateries";
 import {
   lookupDataDefinition,
 } from "./queryHelpers";
@@ -38,9 +40,6 @@ const eateriesForSpookdays2022: EateryNames[] = [
   // EateryNames.WorldOfColorDessertParty, turned off nearly immediately on 9/14
 ];
 
-const TWO_PERSON_COUNT = 2;
-const FOUR_PERSON_COUNT = 4;
-
 const dataForSpookdays2022: DateAndPersonCountDataDefinition[] = [
   { date: "10-06-2022", count: TWO_PERSON_COUNT },
   { date: "10-07-2022", count: TWO_PERSON_COUNT },
@@ -51,7 +50,7 @@ const dataForSpookdays2022: DateAndPersonCountDataDefinition[] = [
 const lookupsToRunForSpookdays2022: lookupDataDefinition[] = [];
 eateriesForSpookdays2022.forEach(
   eatery => {
-    lookupsToRunForSpookdays2022.push(...generateLookupsForEateryOnDates(
+    lookupsToRunForSpookdays2022.push(...generateLookupsForEateryAndDatePersonData(
       eatery,
       dataForSpookdays2022,
     ));
@@ -61,34 +60,30 @@ eateriesForSpookdays2022.forEach(
 const eateriesForFoodAndWine2023: EateryNames[] = [
   EateryNames.Oga,
   EateryNames.Lamplight,
-  EateryNames.CarthayLounge,
+  // EateryNames.CarthayLounge,
   EateryNames.TraderSams,
   EateryNames.BlueBayou,
   EateryNames.BlueBayouFantasmic,
   EateryNames.RiverBelleTerraceFantasmic,
   // EateryNames.CafeOrleans, turned off nearly immediately on 9/14
-  EateryNames.CarthayCircleRestaurant,
+  // EateryNames.CarthayCircleRestaurant,
   // EateryNames.TomorrowlandSkylineLoungeExperience,
   // EateryNames.WineCountryTrattoria, turned off nearly immediately on 9/14
   // EateryNames.WorldOfColorDessertParty, turned off nearly immediately on 9/14
 ];
 
 
-const dataForFoodAndWine2023: DateAndPersonCountDataDefinition[] = [
-  { date: "4-22-2023", count: FOUR_PERSON_COUNT },
-  { date: "4-23-2023", count: TWO_PERSON_COUNT },
-  { date: "4-24-2023", count: TWO_PERSON_COUNT},
-  { date: "4-25-2023", count: TWO_PERSON_COUNT },
+const datesForFoodAndWine2023: DateAndPersonCountDataDefinition[] = [
+  generateFourPersonData("4-22-2023"),
+  generateTwoPersonData("4-23-2023"),
+  generateTwoPersonData("4-24-2023"),
+  generateTwoPersonData("4-25-2023"),
 ];
 
-const lookupsToRunForFoodAndWine2023: lookupDataDefinition[] = [];
-eateriesForFoodAndWine2023.forEach(
-  eatery => {
-    lookupsToRunForFoodAndWine2023.push(...generateLookupsForEateryOnDates(
-      eatery,
-      dataForFoodAndWine2023,
-    ));
-  })
+const lookupsToRunForFoodAndWine2023: lookupDataDefinition[] = generateLookupDataForDatesAndEateries(
+  datesForFoodAndWine2023,
+  eateriesForFoodAndWine2023,
+);
 
   export const generatedEateriesForTrips: {[key: string]:lookupDataDefinition[] } = {
   'spring2002': lookupsToRunForSpring2002,

@@ -49,7 +49,7 @@ export const generateLookupData = (
   };
 };
 
-export const generateLookupsForEateryOnDates = (
+export const generateLookupsForEateryAndDatePersonData = (
   eatery: EateryNames,
   datesAndCountsData: DateAndPersonCountDataDefinition[]
 ) => {
