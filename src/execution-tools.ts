@@ -17,6 +17,7 @@ export type DateAndPersonCountDataDefinition = {date: string, count: number}
 
 export const start = async (lookups: lookupDataDefinition[]) => {
 
+  let foundReservation = false;
   for (let i = 0; i < lookups.length; i++) {
     const currLookup = lookups[i];
     const { wasSuccessful, openings, error } = await runQueryWithLookupData(currLookup);
@@ -28,11 +29,16 @@ export const start = async (lookups: lookupDataDefinition[]) => {
 
     if (hasAvailableTimes(openings)) {
       notifyIftttForOpenings(openings);
+      foundReservation = true;
     }
 
     if (lookups[i + 1]) {
       await delayInMS(QUERY_DELAY_DURATION);
     }
+  }
+
+  if (!foundReservation) {
+    console.log(`No reservations found at ${new Date().toLocaleString()}.`);
   }
   return true;
 };

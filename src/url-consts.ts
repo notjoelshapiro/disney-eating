@@ -45,6 +45,7 @@ export enum EateryNames {
   TomorrowlandSkylineLoungeExperience = "Tomorrowland Skyline Lounge Experience",
   WineCountryTrattoria = "Wine Country Trattoria",
   WorldOfColorDessertParty = "World of Color Dessert Party",
+  RiverBelleTerrace = "River Belle Terrace",
 }
 
 export const EateryIDs = {
@@ -60,4 +61,5 @@ export const EateryIDs = {
   [EateryNames.TomorrowlandSkylineLoungeExperience]: "170",
   [EateryNames.WineCountryTrattoria]: "110",
   [EateryNames.WorldOfColorDessertParty]: "175",
+  [EateryNames.RiverBelleTerrace]: "98",
 };

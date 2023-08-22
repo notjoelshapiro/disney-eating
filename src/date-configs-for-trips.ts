@@ -1,5 +1,5 @@
 import { DateAndPersonCountDataDefinition, generateLookupData, generateLookupsForEateryAndDatePersonData } from "./execution-tools";
-import { FOUR_PERSON_COUNT, generateFourPersonData, generateTwoPersonData, TWO_PERSON_COUNT } from "./generate-date-and-person-data";
+import { FOUR_PERSON_COUNT, generateFourPersonData, generateSixPersonData, generateTwoPersonData, TWO_PERSON_COUNT } from "./generate-date-and-person-data";
 import { generateLookupDataForDatesAndEateries } from "./gernerate-lookup-data-for-dates-and-eateries";
 import {
   lookupDataDefinition,
@@ -60,35 +60,60 @@ eateriesForSpookdays2022.forEach(
 const eateriesForFoodAndWine2023: EateryNames[] = [
   EateryNames.Oga,
   EateryNames.Lamplight,
-  // EateryNames.CarthayLounge,
+  EateryNames.CarthayLounge,
   EateryNames.TraderSams,
   EateryNames.BlueBayou,
   EateryNames.BlueBayouFantasmic,
   EateryNames.RiverBelleTerraceFantasmic,
   // EateryNames.CafeOrleans, turned off nearly immediately on 9/14
-  // EateryNames.CarthayCircleRestaurant,
+  EateryNames.CarthayCircleRestaurant,
   // EateryNames.TomorrowlandSkylineLoungeExperience,
   // EateryNames.WineCountryTrattoria, turned off nearly immediately on 9/14
   // EateryNames.WorldOfColorDessertParty, turned off nearly immediately on 9/14
 ];
 
-
 const datesForFoodAndWine2023: DateAndPersonCountDataDefinition[] = [
-  generateFourPersonData("4-22-2023"),
+  generateSixPersonData("4-22-2023"), // Updated on 3/29
   generateTwoPersonData("4-23-2023"),
   generateTwoPersonData("4-24-2023"),
   generateTwoPersonData("4-25-2023"),
 ];
+
+
 
 const lookupsToRunForFoodAndWine2023: lookupDataDefinition[] = generateLookupDataForDatesAndEateries(
   datesForFoodAndWine2023,
   eateriesForFoodAndWine2023,
 );
 
+const eateriesForSpookdaz2023: EateryNames[] = [
+  EateryNames.Oga,
+  EateryNames.Lamplight,
+  EateryNames.CarthayLounge,
+  EateryNames.CarthayCircleRestaurant,
+  EateryNames.TraderSams,
+  EateryNames.BlueBayou,
+  EateryNames.RiverBelleTerrace,
+];
+
+const datesForSpookdaz2023: DateAndPersonCountDataDefinition[] = [
+  generateSixPersonData("10-14-2023"), 
+  generateTwoPersonData("10-15-2023"),
+  generateTwoPersonData("10-16-2023"),
+  generateTwoPersonData("10-17-2023"),
+];
+
+const lookupsToRunForSpookdaz2023: lookupDataDefinition[] = generateLookupDataForDatesAndEateries(
+  datesForSpookdaz2023,
+  eateriesForSpookdaz2023,
+);
+
+// Add an entry to this object for each trip you want to run.
   export const generatedEateriesForTrips: {[key: string]:lookupDataDefinition[] } = {
   'spring2002': lookupsToRunForSpring2002,
   'spookdays2022': lookupsToRunForSpookdays2022,
   'foodAndWine2023': lookupsToRunForFoodAndWine2023,
+  'spookdaz2023': lookupsToRunForSpookdaz2023,
   } as const;
 
 

@@ -1,5 +1,7 @@
+## To configure
+* Update var `generatedEateriesForTrips` in `date-configs-for-trips.ts` with info for the next trip.
+* Then update `index.ts` with the right trip from the var.
 ## To run
-* Update `date-configs-for-trips.ts`
 * hit up `crontab -e`
 * make sure `ts-node` is globally installed.
 * set PATH and cron schedule.

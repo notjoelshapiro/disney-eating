@@ -97,7 +97,7 @@ export const runQuery = async (
     .then((res) => {
       try {
         const resDataForDate = res.data[0];
-        console.log("resDataForDate", resDataForDate);
+        // console.log("resDataForDate", resDataForDate);
 
         const resultOpenings = resDataForDate.MealOpenings;
         if (hasOpenTimeForSlot(resultOpenings.Breakfast)) {
