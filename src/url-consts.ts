@@ -8,6 +8,8 @@ export const IFTTT_KEY = "felvPa6aBfh_DOZ6eoPgDj-8U5kVjNXoWh1lY11bWLM";
 
 export const IFTTT_KEY_FOR_KATIE = "chNWCbjcW9MN59AzhWUCnu";
 
+export const IFTTT_KEY_FOR_NATALIE = 'cZT_syP03_BSOJC1hcYxml'
+
 export const QUERY_DELAY_DURATION = 1400;
 
 export type IFTTTEventWebhookDefinition = {

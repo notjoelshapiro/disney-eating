@@ -4,6 +4,7 @@ import {
   IFTTT_EVENT_NAME,
   IFTTT_KEY,
   IFTTT_KEY_FOR_KATIE,
+  IFTTT_KEY_FOR_NATALIE,
   IFTTT_OPENING_FAILURE_EVENT_NAME,
 } from "./url-consts";
 
@@ -33,7 +34,10 @@ export const triggerIfttt = async (
 
   return axios.post(url, data).then(() => {
     const katieURL = `https://maker.ifttt.com/trigger/${eventName}/with/key/${IFTTT_KEY_FOR_KATIE}`;
-    return axios.post(katieURL, data);
+    return axios.post(katieURL, data).then(() => {
+      const katieURL = `https://maker.ifttt.com/trigger/${eventName}/with/key/${IFTTT_KEY_FOR_NATALIE}`;
+      return axios.post(katieURL, data);
+    });;
   });
 };
 
