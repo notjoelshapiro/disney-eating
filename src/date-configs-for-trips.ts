@@ -89,18 +89,18 @@ const lookupsToRunForFoodAndWine2023: lookupDataDefinition[] = generateLookupDat
 const eateriesForSpookdaz2023: EateryNames[] = [
   EateryNames.Oga,
   EateryNames.Lamplight,
-  EateryNames.CarthayLounge,
-  EateryNames.CarthayCircleRestaurant,
+  // EateryNames.CarthayLounge,
+  // EateryNames.CarthayCircleRestaurant,
   EateryNames.TraderSams,
   EateryNames.BlueBayou,
   // EateryNames.RiverBelleTerrace, turned off almost immediately
 ];
 
 const datesForSpookdaz2023: DateAndPersonCountDataDefinition[] = [
-  generateSixPersonData("10-14-2023"), 
-  generateTwoPersonData("10-15-2023"),
+  generateTwoPersonData("10-14-2023"),
+  generateFourPersonData("10-15-2023"),
   generateTwoPersonData("10-16-2023"),
-  generateTwoPersonData("10-17-2023"),
+  generateFourPersonData("10-17-2023"),
   generateTwoPersonData("10-18-2023"), // Added for Juice and Natalie
   generateTwoPersonData("10-19-2023"), // Added for Juice and Natalie
 ];
