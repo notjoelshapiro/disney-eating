@@ -25,19 +25,19 @@ export const triggerIfttt = async (
   eventName = IFTTT_EVENT_NAME
 ) => {
   // https://maker.ifttt.com/trigger/{event}/with/key/{my_key}?value1=Alex&value2=Helen
-  const url = `https://maker.ifttt.com/trigger/${eventName}/with/key/${IFTTT_KEY}`;
+  const joelURL = `https://maker.ifttt.com/trigger/${eventName}/with/key/${IFTTT_KEY}`;
   const data = {
     value1,
     value2,
     value3,
   };
 
-  return axios.post(url, data).then(() => {
+  return axios.post(joelURL, data).then(() => {
     const katieURL = `https://maker.ifttt.com/trigger/${eventName}/with/key/${IFTTT_KEY_FOR_KATIE}`;
-    return axios.post(katieURL, data).then(() => {
-      const katieURL = `https://maker.ifttt.com/trigger/${eventName}/with/key/${IFTTT_KEY_FOR_NATALIE}`;
-      return axios.post(katieURL, data);
-    });;
+    return axios.post(katieURL, data);//.then(() => {
+    //   const natalieURL = `https://maker.ifttt.com/trigger/${eventName}/with/key/${IFTTT_KEY_FOR_NATALIE}`;
+    //   return axios.post(natalieURL, data);
+    // });
   });
 };
 
@@ -57,16 +57,24 @@ export const notifyIftttForFailure = async (
 
 export const notifyIftttForOpenings = async (openings: OpeningDefinition[]) => {
   // iterate through openingTimes and console log the value
+  const iftttPromises: Promise<any>[] = [];
   for (let i = 0; i < openings.length; i++) {
     const opening = openings[i];
 
+    // needs to be in the form of 20-10-15
     console.log(`Available time was found for: ${opening.eatery} on ${opening.dateString} at ${opening.mealTime} for ${opening.guestCount} guests`);
-    await triggerIfttt({
-      value1: opening.eatery,
-      value2: `${opening.mealTime} on ${opening.dateString}`,
-      value3: opening.guestCount,
-    });
+
+    const notifString = `${opening.eatery} (${opening.dateString} - ${opening.mealTime}) for ${opening.guestCount}!`
+    iftttPromises.push(
+      triggerIfttt({
+        value1: notifString,
+        value2: opening.dateString,
+        value3: opening.guestCount,
+      })
+    );
   }
 
-  return true;
+  return Promise.all(iftttPromises).then(() => {
+    return true;
+  });
 };

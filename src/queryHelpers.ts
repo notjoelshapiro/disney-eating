@@ -78,13 +78,14 @@ export const runQuery = async (
   let openings: OpeningDefinition[] = [];
 
   const generateOpeningResultObject = (
-    availableMealtime: OpeningMealTimesDefinition
+    availableMealtime: OpeningMealTimesDefinition,
+    dateStringFromResponse: string
   ): OpeningDefinition => {
     return {
       guestCount,
       mealTime: availableMealtime,
       eatery,
-      dateString,
+      dateString: dateStringFromResponse,
     };
   };
 
@@ -97,22 +98,22 @@ export const runQuery = async (
     .then((res) => {
       try {
         const resDataForDate = res.data[0];
-        // console.log("resDataForDate", resDataForDate);
+        // console.log("resDataForDate.Date", resDataForDate.Date);
 
         const resultOpenings = resDataForDate.MealOpenings;
         if (hasOpenTimeForSlot(resultOpenings.Breakfast)) {
           openings.push(
-            generateOpeningResultObject(OpeningMealTimesDefinition.Breakfast)
+            generateOpeningResultObject(OpeningMealTimesDefinition.Breakfast, resDataForDate.Date)
           );
         }
         if (hasOpenTimeForSlot(resultOpenings.Lunch)) {
           openings.push(
-            generateOpeningResultObject(OpeningMealTimesDefinition.Lunch)
+            generateOpeningResultObject(OpeningMealTimesDefinition.Lunch, resDataForDate.Date)
           );
         }
         if (hasOpenTimeForSlot(resultOpenings.Dinner)) {
           openings.push(
-            generateOpeningResultObject(OpeningMealTimesDefinition.Dinner)
+            generateOpeningResultObject(OpeningMealTimesDefinition.Dinner, resDataForDate.Date)
           );
         }
       } catch (err: any) {
