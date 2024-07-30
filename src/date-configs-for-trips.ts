@@ -143,16 +143,37 @@ const eateriesForFoodAndWine2024: EateryNames[] = [
 ];
 
 const datesForFoodAndWine2024: DateAndPersonCountDataDefinition[] = [
-  generateTwoPersonData("3-08-2023"),
-  generateTwoPersonData("3-09-2023"),
-  generateTwoPersonData("3-10-2023"),
+  generateTwoPersonData("3-08-2024"),
+  generateFourPersonData("3-09-2024"),
+  generateTwoPersonData("3-10-2024"),
 ];
-
-
 
 const lookupsToRunForFoodAndWine2024: lookupDataDefinition[] = generateLookupDataForDatesAndEateries(
   datesForFoodAndWine2024,
   eateriesForFoodAndWine2024,
+);
+
+// Spookdaz 2024
+const eateriesForSpookdaz2024: EateryNames[] = [
+  // EateryNames.Oga,
+  EateryNames.Lamplight,
+  EateryNames.CarthayLounge,
+  EateryNames.TraderSams,
+  EateryNames.BlueBayou,
+  EateryNames.CarthayCircleRestaurant,
+];
+
+const datesForSpookdaz2024: DateAndPersonCountDataDefinition[] = [
+  generateTwoPersonData("8-22-2024"),
+  generateTwoPersonData("8-23-2024"),
+  generateFourPersonData("8-24-2024"),
+  generateTwoPersonData("8-25-2024"),
+  generateTwoPersonData("8-26-2024"),
+];
+
+const lookupsToRunForSpookdaz2024: lookupDataDefinition[] = generateLookupDataForDatesAndEateries(
+  datesForSpookdaz2024,
+  eateriesForSpookdaz2024,
 );
 
 // Add an entry to this object for each trip you want to run.
@@ -163,6 +184,7 @@ export const generatedEateriesForTrips: {[key: string]:lookupDataDefinition[] } 
   'spookdaz2023': lookupsToRunForSpookdaz2023,
   'xmas2023': lookupsToRunForXMas2023,
   'foodAndWine2024': lookupsToRunForFoodAndWine2024,
+  'spookdaz2024': lookupsToRunForSpookdaz2024,
   } as const;
 
 

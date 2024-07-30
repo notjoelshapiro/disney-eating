@@ -48,6 +48,7 @@ export enum EateryNames {
   WineCountryTrattoria = "Wine Country Trattoria",
   WorldOfColorDessertParty = "World of Color Dessert Party",
   RiverBelleTerrace = "River Belle Terrace",
+  Centrico = "Centrico",
 }
 
 export const EateryIDs = {
@@ -64,4 +65,5 @@ export const EateryIDs = {
   [EateryNames.WineCountryTrattoria]: "110",
   [EateryNames.WorldOfColorDessertParty]: "175",
   [EateryNames.RiverBelleTerrace]: "98",
+  [EateryNames.Centrico]: "272",
 };

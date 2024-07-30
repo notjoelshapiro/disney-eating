@@ -162,3 +162,11 @@ export const runQueryWithLookupData = async ({
 
   return runQuery(generatedURLForEatery, eatery, guestCount, dateString);
 };
+
+export const generateEateryURL = (
+  guestCount: number,
+  dateString: string,
+): string => {
+  return `https://disneyland.disney.go.com/dine-res/search-results/${guestCount}/${dateString}/allDay`
+
+}

@@ -38,7 +38,7 @@ export const start = async (lookups: lookupDataDefinition[]) => {
   }
 
   if (!foundReservation) {
-    console.log(`No reservations found at ${new Date().toLocaleString()}.`);
+    console.log(`No reservations found when searching at ${new Date().toLocaleString()}.`);
   }
   return true;
 };
