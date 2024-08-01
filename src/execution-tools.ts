@@ -1,3 +1,4 @@
+import { exclusionDataDefinition } from "./generate-lookup-data-for-dates-and-eateries";
 import {
   delayInMS,
   lookupDataDefinition,
@@ -57,10 +58,33 @@ export const generateLookupData = (
 
 export const generateLookupsForEateryAndDatePersonData = (
   eatery: EateryNames,
-  datesAndCountsData: DateAndPersonCountDataDefinition[]
-) => {
-  const lookupDataForSpookdays2022: lookupDataDefinition[] = datesAndCountsData.map(({date, count}) => {
-    return generateLookupData(date, eatery, count);
-  });
-  return lookupDataForSpookdays2022;
+  datesAndCountsData: DateAndPersonCountDataDefinition[],
+  exclusionData?: exclusionDataDefinition
+): lookupDataDefinition[] => {
+  const lookupData: lookupDataDefinition[] = [];
+
+  const foundAndExcludedData: string[] = [];
+
+  datesAndCountsData.forEach(({date, count}) => {
+    const eateriesOnDate = exclusionData && exclusionData[date] ? exclusionData[date] : [];
+    const excludeEateryOnDay = eateriesOnDate.includes(eatery)
+    if (excludeEateryOnDay) {
+      const exclusionString = `Excluding ${eatery} on ${date}`;
+      console.log(exclusionString);
+      foundAndExcludedData.push(exclusionString);
+      return;
+    }
+
+    lookupData.push(generateLookupData(date, eatery, count));
+  })
+
+  console.log('foundAndExcludedData', foundAndExcludedData);
+  console.log('lookupData', lookupData);
+  // datesAndCountsData.map(({date, count}) => {
+  //   if (exclusionData && exclusionData[date] && exclusionData[date].includes(eatery)) {
+  //     return null
+  //   }
+  //   return generateLookupData(date, eatery, count);
+  // });
+  return lookupData;
 };
